@@ -11,9 +11,9 @@ import SuperSettingsPage from "@/views/pages/auth/general/settings/super-setting
 import LoginPage from "@/views/pages/guest/login-page";
 import ForgotPasswordPage from "@/views/pages/guest/password/forgot-password-page";
 import MainPage from "@/views/site/main-page";
-import HomePage from "@/views/site/home/home-page";
-import AboutPage from "@/views/site/about/about-page";
-import ContactPage from "@/views/site/contact/contact-page";
+import HomePage from "@/views/site/tabs/home/home-page";
+import AboutPage from "@/views/site/tabs/about/about-page";
+import ContactPage from "@/views/site/tabs/contact/contact-page";
 import SiteLayout from "@/views/layout/site-layout";
 import SuperAuditPage from "@/views/pages/auth/super/audit/super-audit-page";
 import SuperUserEditPage from "@/views/pages/auth/general/users/edit/super-user-edit-page";
