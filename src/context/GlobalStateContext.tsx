@@ -1,4 +1,3 @@
-import useUserDB from "@/lib/indexeddb/useUserDB";
 import React, {
   createContext,
   useContext,
@@ -9,8 +8,9 @@ import React, {
 import { Calendar, Locale } from "react-date-object";
 import arabic from "react-date-object/calendars/arabic";
 import arabic_ar from "react-date-object/locales/arabic_ar";
-import { CALENDAR, CALENDAR_LOCALE, SYSTEM_CALENDAR } from "@/lib/constants";
+import { CACHE, CALENDAR, CALENDAR_LOCALE } from "@/lib/constants";
 import { getCalender } from "@/lib/utils";
+import useCacheDB from "@/lib/indexeddb/useCacheDB";
 export interface SystemLanguage {
   calendar: Calendar | undefined;
   local: Locale | undefined;
@@ -54,10 +54,10 @@ const globalStateReducer = (state: State, action: Action): State => {
 export const GlobalStateProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const { getAppCache } = useUserDB();
+  const { getComponentCache } = useCacheDB();
   const [state, dispatch] = useReducer(globalStateReducer, initialState);
   const initialize = async () => {
-    const calendar = await getAppCache(SYSTEM_CALENDAR);
+    const calendar = await getComponentCache(CACHE.SYSTEM_CALENDAR);
     if (calendar) {
       const { calender, locale } = getCalender(
         calendar.value.calendarId,

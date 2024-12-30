@@ -1,4 +1,4 @@
-import { Audit, SelectUserPermission, User } from "@/database/tables";
+import { Audit, Ngo, SelectUserPermission, User } from "@/database/tables";
 import { DateObject } from "react-multi-date-picker";
 
 export interface IMenuItem {
@@ -100,6 +100,32 @@ export interface AuditFilter {
 }
 export interface AuditPaginationData {
   data: Audit[];
+  lastPage: number;
+  perPage: number;
+  currentPage: number;
+  totalItems: number;
+}
+// Application
+export type NgoSort =
+  | "id"
+  | "name"
+  | "type"
+  | "date_of_establishment"
+  | "contact"
+  | "expire_date"
+  | "status";
+export type NgoSearch = "id" | "registration_no" | "name" | "type" | "contact";
+export interface NgoFilter {
+  sort: NgoSort;
+  order: Order;
+  search: {
+    column: NgoSearch;
+    value: string;
+  };
+  date: DateObject[];
+}
+export interface NgoPaginationData {
+  data: Ngo[];
   lastPage: number;
   perPage: number;
   currentPage: number;

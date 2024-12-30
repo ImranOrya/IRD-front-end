@@ -1,4 +1,3 @@
-import { PAGINATION_COUNT } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { Check, ChevronDown } from "lucide-react";
 import React, { useState, useRef, useEffect } from "react";
@@ -11,6 +10,7 @@ interface Option {
 interface SelectProps {
   placeholder: string;
   className?: string;
+  paginationKey: string;
   emptyPlaceholder: string;
   rangePlaceholder: string;
   options: Option[];
@@ -33,6 +33,7 @@ const CustomSelect: React.FC<SelectProps> = ({
   updateCache,
   getCache,
   className,
+  paginationKey,
 }) => {
   const [selectData, setSelectData] = useState<{
     isOpen: boolean;
@@ -58,7 +59,7 @@ const CustomSelect: React.FC<SelectProps> = ({
   const handleSelect = (value: string) => {
     onChange(value);
     const item = {
-      key: PAGINATION_COUNT,
+      key: paginationKey,
       value: value,
       option: KEYS.default,
     };
@@ -83,7 +84,7 @@ const CustomSelect: React.FC<SelectProps> = ({
         setSelectData({
           ...selectData,
           select: {
-            key: PAGINATION_COUNT,
+            key: paginationKey,
             value: "10",
             option: KEYS.default,
           },
@@ -187,7 +188,7 @@ const CustomSelect: React.FC<SelectProps> = ({
                 }
                 onChange(value);
                 const item = {
-                  key: PAGINATION_COUNT,
+                  key: paginationKey,
                   value: value,
                   option: option,
                 };

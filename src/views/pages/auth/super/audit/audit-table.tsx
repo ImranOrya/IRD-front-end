@@ -10,7 +10,6 @@ import {
 import { toast } from "@/components/ui/use-toast";
 import { useGlobalState } from "@/context/GlobalStateContext";
 import { Audit } from "@/database/tables";
-import useUserDB from "@/lib/indexeddb/useUserDB";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router";
@@ -30,11 +29,12 @@ import {
   AuditSort,
   Order,
 } from "@/lib/types";
-import { AUDIT_PAGINATION_COUNT } from "@/lib/constants";
+import useCacheDB from "@/lib/indexeddb/useCacheDB";
+import { CACHE } from "@/lib/constants";
 
 export function AuditTable() {
   const searchRef = useRef<HTMLInputElement>(null);
-  const { updateAppCache, getAppCache } = useUserDB();
+  const { updateComponentCache, getComponentCache } = useCacheDB();
 
   const [searchParams] = useSearchParams();
   // Accessing individual search filters
@@ -134,7 +134,7 @@ export function AuditTable() {
     }
   };
   const initialize = async (dataFilters: AuditFilter) => {
-    const count = await getAppCache(AUDIT_PAGINATION_COUNT);
+    const count = await getComponentCache(CACHE.AUDIT_TABLE_PAGINATION_COUNT);
     loadList(count ? count.value : 10, dataFilters);
   };
   useEffect(() => {
@@ -224,14 +224,17 @@ export function AuditTable() {
           }
         />
         <CustomSelect
+          paginationKey={CACHE.AUDIT_TABLE_PAGINATION_COUNT}
           options={[
             { value: "10", label: "10" },
             { value: "20", label: "20" },
             { value: "50", label: "50" },
           ]}
           className="w-fit sm:self-baseline"
-          updateCache={updateAppCache}
-          getCache={async () => await getAppCache(AUDIT_PAGINATION_COUNT)}
+          updateCache={updateComponentCache}
+          getCache={async () =>
+            await getComponentCache(CACHE.AUDIT_TABLE_PAGINATION_COUNT)
+          }
           placeholder={`${t("select")}...`}
           emptyPlaceholder={t("No options found")}
           rangePlaceholder={t("count")}
@@ -299,7 +302,9 @@ export function AuditTable() {
           lastPage={audits.unFilterList.lastPage}
           onPageChange={async (page) => {
             try {
-              const count = await getAppCache(AUDIT_PAGINATION_COUNT);
+              const count = await getComponentCache(
+                CACHE.AUDIT_TABLE_PAGINATION_COUNT
+              );
               const response = await axiosClient.get(`audits/${page}`, {
                 params: {
                   per_page: count ? count.value : 10,

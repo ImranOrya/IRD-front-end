@@ -1,3 +1,4 @@
+import AnimHomeIcon from "@/components/custom-ui/icons/AnimHomeIcon";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -5,12 +6,10 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { Link } from "react-router";
-import AnimHomeIcon from "@/components/custom-ui/icons/AnimHomeIcon";
 import { useTranslation } from "react-i18next";
-import { UserTable } from "./user-table";
-import UserHeader from "./user-header";
-export default function UserPage() {
+import { Link } from "react-router";
+
+export default function NgoReportsPage() {
   const { t } = useTranslation();
 
   return (
@@ -25,13 +24,13 @@ export default function UserPage() {
           <BreadcrumbSeparator className="rtl:rotate-180" />
           <BreadcrumbItem>
             <BreadcrumbPage className="text-tertiary">
-              {t("users")}
+              {t("Projects Reports")}
             </BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-      <UserHeader />
-      <UserTable />
+      <h1 className="p-4"> Comming Soon...</h1>
+      {/* <AuditTable /> */}
     </div>
   );
 }

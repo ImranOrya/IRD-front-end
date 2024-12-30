@@ -2,7 +2,10 @@ export type Role =
   | { role: 3; name: "user" }
   | { role: 2; name: "admin" }
   | { role: 1; name: "super" }
-  | { role: 4; name: "debugger" };
+  | { role: 4; name: "debugger" }
+  | { role: 5; name: "ngo" }
+  | { role: 6; name: "donor" };
+
 export type Permission = {
   name: string;
 };
@@ -72,6 +75,21 @@ export type Destination = {
   createdAt: string;
 };
 
+export type Country = {
+  id: string;
+  name: string;
+};
+export type Distric = {
+  id: string;
+  name: string;
+};
+export type Address = {
+  id: string;
+  country: Country;
+  district: Distric;
+  area: string;
+};
+
 export type Audit = {
   id: string;
   user_id: string;
@@ -85,4 +103,28 @@ export type Audit = {
   ip_address: string;
   user_agent: string;
   created_at: string;
+};
+// App
+export type NgoStatus = "block" | "active" | "inactive" | "mou_not_reg";
+export type NgoType = {
+  id: string;
+  name: string;
+  createdAt: string;
+};
+export type Ngo = {
+  id: string;
+  profile: string;
+  name: string;
+  abbr: string;
+  status: NgoStatus;
+  registration_no: string;
+  date_of_establishment: string;
+  expire_date: string;
+  type: NgoType;
+  moe_registrationNo: string;
+  place_of_establishment: string;
+  email: Email;
+  contact: Contact;
+  createdAt: string;
+  address: Address;
 };

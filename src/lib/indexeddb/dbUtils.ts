@@ -1,18 +1,24 @@
 // dbUtils.ts
 import { DBConfig, dbConfigs } from "./dbConfig"; // Adjust the path as needed
-
+const storeConfigs = [
+  { name: "cmp", keyPath: "key", autoIncrement: true },
+  { name: "chat", keyPath: "key", autoIncrement: true },
+];
 const openDatabase = (config: DBConfig): Promise<IDBDatabase> => {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(config.name, config.version);
 
     request.onupgradeneeded = (event) => {
       const db = (event.target as IDBOpenDBRequest).result;
-      if (!db.objectStoreNames.contains("cmp")) {
-        db.createObjectStore("cmp", {
-          keyPath: "key",
-          autoIncrement: true,
-        });
-      }
+      storeConfigs.forEach((store) => {
+        const exist = db.objectStoreNames.contains(store.name);
+        if (!exist) {
+          db.createObjectStore(store.name, {
+            keyPath: store.keyPath,
+            autoIncrement: store.autoIncrement,
+          });
+        }
+      });
     };
 
     request.onsuccess = (event) => {

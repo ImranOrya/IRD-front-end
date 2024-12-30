@@ -19,6 +19,7 @@ import NastranSpinner from "../spinner/NastranSpinner";
 import { toast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import axiosClient from "@/lib/axois-client";
+import { useTranslation } from "react-i18next";
 
 export interface FetchApi {
   url: string;
@@ -49,6 +50,7 @@ export interface IAPIComboboxProps {
   lable?: string;
   errorText: string;
   placeholderText: string;
+  translate?: boolean;
 }
 
 export default function APICombobox(props: IAPIComboboxProps) {
@@ -67,11 +69,13 @@ export default function APICombobox(props: IAPIComboboxProps) {
     errorText,
     lable,
     placeholderText,
+    translate,
   } = props;
   const [loading, setLoading] = useState(true);
   const [items, setItems] = useState<Array<ComboboxItem>>([]);
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(selectedItem);
+  const { t } = useTranslation();
 
   const updateSelect = () => {
     if (selectedItem) {
@@ -165,7 +169,7 @@ export default function APICombobox(props: IAPIComboboxProps) {
             role="combobox"
             aria-expanded={open}
             className={cn(
-              `w-fit min-w-[260px] min-h-[43px] rtl:text-lg-rtl ltr:text-lg-ltr relative justify-between ${
+              `w-fit min-w-[260px] min-h-[43px] rtl:text-lg-rtl ltr:text-xl-ltr relative justify-between ${
                 error && "border-red-400 border"
               } ${required || lable ? "mt-[20px]" : "mt-2"} ${
                 readonly && "cursor-not-allowed"
@@ -213,7 +217,7 @@ export default function APICombobox(props: IAPIComboboxProps) {
                       value={item.name}
                       onSelect={onSelectChange}
                     >
-                      {item.name}
+                      {translate ? t(item.name) : item.name}
                       {item.selected && (
                         <Check className={"ltr:ml-auto rtl:mr-auto h-4 w-4"} />
                       )}

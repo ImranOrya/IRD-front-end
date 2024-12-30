@@ -7,7 +7,11 @@ interface AuthState {
   authenticated: boolean;
   user: User;
   loading: boolean;
-  login: (email: string, password: string) => Promise<void>;
+  login: (
+    email: string,
+    password: string,
+    rememberMe: boolean
+  ) => Promise<void>;
   setUser: (user: User) => Promise<void>;
   logout: () => Promise<void>;
 }
@@ -106,7 +110,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     };
     loadUser();
   }, []);
-  const login = async (email: string, password: string): Promise<any> => {
+  const login = async (
+    email: string,
+    password: string,
+    rememberMe: boolean
+  ): Promise<any> => {
     let response: any = null;
     try {
       const formData = new FormData();
@@ -114,10 +122,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       formData.append("password", password);
       response = await axiosClient.post("auth-login", formData);
       if (response.status == 200) {
-        localStorage.setItem(
-          import.meta.env.VITE_TOKEN_STORAGE_KEY,
-          response.data.token
-        );
+        if (rememberMe) {
+          localStorage.setItem(
+            import.meta.env.VITE_TOKEN_STORAGE_KEY,
+            response.data.token
+          );
+        }
         const user = response.data.user as User;
         if (user != null)
           user.permissions = returnPermissions(response.data?.permissions);

@@ -41,7 +41,11 @@ export default function LoginPage() {
         }
 
         // 2. Attempt login
-        const response: any = await login(userData.email, userData.password);
+        const response: any = await login(
+          userData.email,
+          userData.password,
+          true
+        );
         if (response.code == "ERR_NETWORK")
           toast({
             title: t("Network problem"),

@@ -11,8 +11,7 @@ import { toast } from "@/components/ui/use-toast";
 import { useAuthState } from "@/context/AuthContextProvider";
 import { useGlobalState } from "@/context/GlobalStateContext";
 import { User, UserPermission } from "@/database/tables";
-import { PAGINATION_COUNT, SectionEnum } from "@/lib/constants";
-import useUserDB from "@/lib/indexeddb/useUserDB";
+import { CACHE, SectionEnum } from "@/lib/constants";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useSearchParams } from "react-router";
@@ -38,12 +37,13 @@ import {
   UserSearch,
   UserSort,
 } from "@/lib/types";
+import useCacheDB from "@/lib/indexeddb/useCacheDB";
 
 export function UserTable() {
   const { user } = useAuthState();
   const navigate = useNavigate();
   const searchRef = useRef<HTMLInputElement>(null);
-  const { updateAppCache, getAppCache } = useUserDB();
+  const { updateComponentCache, getComponentCache } = useCacheDB();
 
   const [searchParams] = useSearchParams();
   // Accessing individual search filters
@@ -134,7 +134,7 @@ export function UserTable() {
     }
   };
   const initialize = async (dataFilters: UserFilter) => {
-    const count = await getAppCache(PAGINATION_COUNT);
+    const count = await getComponentCache(CACHE.USER_TABLE_PAGINATION_COUNT);
     loadList(count ? count.value : 10, dataFilters);
   };
   useEffect(() => {
@@ -377,14 +377,17 @@ export function UserTable() {
           </NastranModel>
         </div>
         <CustomSelect
+          paginationKey={CACHE.USER_TABLE_PAGINATION_COUNT}
           options={[
             { value: "10", label: "10" },
             { value: "20", label: "20" },
             { value: "50", label: "50" },
           ]}
           className="w-fit sm:self-baseline"
-          updateCache={updateAppCache}
-          getCache={async () => await getAppCache(PAGINATION_COUNT)}
+          updateCache={updateComponentCache}
+          getCache={async () =>
+            await getComponentCache(CACHE.USER_TABLE_PAGINATION_COUNT)
+          }
           placeholder={`${t("select")}...`}
           emptyPlaceholder={t("No options found")}
           rangePlaceholder={t("count")}
@@ -480,7 +483,9 @@ export function UserTable() {
           lastPage={users.unFilterList.lastPage}
           onPageChange={async (page) => {
             try {
-              const count = await getAppCache(PAGINATION_COUNT);
+              const count = await getComponentCache(
+                CACHE.USER_TABLE_PAGINATION_COUNT
+              );
               const response = await axiosClient.get(`users/${page}`, {
                 params: {
                   per_page: count ? count.value : 10,

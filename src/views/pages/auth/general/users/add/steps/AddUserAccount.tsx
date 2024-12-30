@@ -56,6 +56,7 @@ export default function AddUserAccount() {
         placeHolder={t("Select a role")}
         errorMessage={error.get("role")}
         apiUrl={"roles"}
+        translate={true}
         mode="single"
       />
 

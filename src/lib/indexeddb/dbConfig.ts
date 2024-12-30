@@ -5,6 +5,6 @@ export interface DBConfig {
 }
 
 export const dbConfigs: { [key: string]: DBConfig } = {
-  cmpdb: { name: "cmpdb", version: 1 },
-  cdb: { name: "cdb", version: 1 },
+  appCache: { name: "appCache", version: 1 },
+  // cmpdb: { name: "cmpdb", version: 1 },
 };

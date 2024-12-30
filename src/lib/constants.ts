@@ -5,6 +5,9 @@ export const SectionEnum = {
   settings: "settings",
   logs: "logs",
   audit: "audit",
+  projects: "projects",
+  ngo: "ngo",
+  donor: "donor",
 };
 
 export const RoleEnum = {
@@ -12,6 +15,8 @@ export const RoleEnum = {
   admin: 2,
   user: 3,
   debugger: 4,
+  ngo: 5,
+  donor: 6,
 };
 export const PERMISSIONS_OPERATION = ["Add", "Edit", "Delete", "View"];
 
@@ -63,7 +68,10 @@ export const CALENDAR_FORMAT = {
   format_2: "YYYY-MM-DD",
   format_3: "YYYY/MM/dddd",
 };
-export const PAGINATION_COUNT = "pagination_count";
-export const DOCUMENT_PAGINATION_COUNT = "doc_pagination_count";
-export const AUDIT_PAGINATION_COUNT = "audit_pagination_count";
-export const SYSTEM_CALENDAR = "system_calendar";
+export const CACHE = {
+  USER_TABLE_PAGINATION_COUNT: "USER_TABLE",
+  AUDIT_TABLE_PAGINATION_COUNT: "NGO_TABLE",
+  NGO_TABLE_PAGINATION_COUNT: "NGO_TABLE",
+  PROJECT_TABLE_PAGINATION_COUNT: "PROJECT_TABLE",
+  SYSTEM_CALENDAR: "SYSTEM_CALENDAR",
+};

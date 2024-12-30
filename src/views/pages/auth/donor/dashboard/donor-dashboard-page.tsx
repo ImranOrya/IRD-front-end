@@ -15,7 +15,7 @@ const LazyDashedLineChart = React.lazy(
   () => import("@/components/custom-ui/charts/DashedLineChart")
 );
 
-export default function AdminDashboardPage() {
+export default function DonorDashboardPage() {
   const { t } = useTranslation();
   const { theme } = useTheme();
   const [loading, setLoading] = useState(true);

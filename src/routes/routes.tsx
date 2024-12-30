@@ -1,13 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router";
 import { I18nextProvider } from "react-i18next";
 import i18n from "@/lib/i18n";
-import AdminDashboardPage from "@/views/pages/auth/admin/dashboard/admin-dashboard-page";
-import UserPage from "@/views/pages/auth/general/users/user-page";
 import ProfilePage from "@/views/pages/auth/general/profile/profile-page";
 import LogsPage from "@/views/pages/auth/super/logs/logs-page";
 import ErrorPage from "@/views/pages/error/error-page";
-import SuperDashboardPage from "@/views/pages/auth/super/dashboard/super-dashboard-page";
-import SuperSettingsPage from "@/views/pages/auth/general/settings/super-settings-page";
+import SuperDashboardPage from "@/views/pages/auth/general/dashboard/super-dashboard-page";
 import LoginPage from "@/views/pages/guest/login-page";
 import ForgotPasswordPage from "@/views/pages/guest/password/forgot-password-page";
 import MainPage from "@/views/site/main-page";
@@ -20,10 +17,25 @@ import SuperUserEditPage from "@/views/pages/auth/general/users/edit/super-user-
 import { User, UserPermission } from "@/database/tables";
 import ProtectedRoute from "@/routes/protected-route";
 import Unauthorized from "@/views/pages/error/unauthorized";
-import SuperReportsPage from "@/views/pages/auth/general/reports/super-reports-page";
-import UserDashboardPage from "@/views/pages/auth/user/dashboard/user-dashboard-page";
 import GuestLayout from "@/views/layout/guest-layout";
 import AuthLayout from "@/views/layout/auth-layout";
+import UserSettingsPage from "@/views/pages/auth/user/settings/user-settings-page";
+import UserDashboardPage from "@/views/pages/auth/user/dashboard/user-dashboard-page";
+import DonorDashboardPage from "@/views/pages/auth/donor/dashboard/donor-dashboard-page";
+import DonorNgoPage from "@/views/pages/auth/donor/ngo/donor-ngo-page";
+import DonorProjectsPage from "@/views/pages/auth/donor/projects/donor-projects-page";
+import DonorReportsPage from "@/views/pages/auth/donor/reports/donor-reports-page";
+import DonorSettingsPage from "@/views/pages/auth/donor/settings/donor-settings-page";
+import NgoDashboardPage from "@/views/pages/auth/ngo/dashboard/ngo-dashboard-page";
+import NgoProjectsPage from "@/views/pages/auth/ngo/projects/ngo-projects-page";
+import NgoSettingsPage from "@/views/pages/auth/ngo/settings/ngo-settings-page";
+import UserNgoPage from "@/views/pages/auth/user/ngo/user-ngo-page";
+import UserReportsPage from "@/views/pages/auth/user/reports/user-reports-page";
+import SuperSettingsPage from "@/views/pages/auth/general/settings/super-settings-page";
+import SuperReportsPage from "@/views/pages/auth/general/reports/super-reports-page";
+import SuperUserPage from "@/views/pages/auth/general/users/super-user-page";
+import NgoReportsPage from "@/views/pages/auth/ngo/reports/ngo-reports-page";
+import ProjectsPage from "@/views/pages/auth/user/projects/projects-page";
 
 export const getSuperRouter = (user: User) => {
   const permissions: Map<string, UserPermission> = user.permissions;
@@ -66,10 +78,30 @@ export const getSuperRouter = (user: User) => {
             }
           />
           <Route
+            path="ngo"
+            element={
+              <ProtectedRoute
+                element={<UserNgoPage />}
+                routeName="ngo"
+                permissions={permissions}
+              />
+            }
+          />
+          <Route
+            path="projects"
+            element={
+              <ProtectedRoute
+                element={<ProjectsPage />}
+                routeName="projects"
+                permissions={permissions}
+              />
+            }
+          />
+          <Route
             path="users"
             element={
               <ProtectedRoute
-                element={<UserPage />}
+                element={<SuperUserPage />}
                 routeName="users"
                 permissions={permissions}
               />
@@ -90,7 +122,7 @@ export const getSuperRouter = (user: User) => {
             element={
               <ProtectedRoute
                 element={<SuperReportsPage />}
-                routeName="reports"
+                routeName="ngo-reports"
                 permissions={permissions}
               />
             }
@@ -168,7 +200,7 @@ export const getAdminRouter = (user: User) => {
             path="dashboard"
             element={
               <ProtectedRoute
-                element={<AdminDashboardPage />}
+                element={<SuperDashboardPage />}
                 routeName="dashboard"
                 permissions={permissions}
               />
@@ -178,7 +210,7 @@ export const getAdminRouter = (user: User) => {
             path="users"
             element={
               <ProtectedRoute
-                element={<UserPage />}
+                element={<SuperUserPage />}
                 routeName="users"
                 permissions={permissions}
               />
@@ -265,11 +297,211 @@ export const getUserRouter = (user: User) => {
             }
           />
           <Route
+            path="ngo"
+            element={
+              <ProtectedRoute
+                element={<UserNgoPage />}
+                routeName="ngo"
+                permissions={permissions}
+              />
+            }
+          />
+          <Route
+            path="projects"
+            element={
+              <ProtectedRoute
+                element={<ProjectsPage />}
+                routeName="projects"
+                permissions={permissions}
+              />
+            }
+          />
+          <Route
             path="reports"
             element={
               <ProtectedRoute
-                element={<SuperReportsPage />}
+                element={<UserReportsPage />}
                 routeName="reports"
+                permissions={permissions}
+              />
+            }
+          />
+          <Route
+            path="settings"
+            element={
+              <ProtectedRoute
+                element={<UserSettingsPage />}
+                routeName="settings"
+                permissions={permissions}
+              />
+            }
+          />
+          <Route path="profile" element={<ProfilePage />} />
+        </Route>
+
+        {/* Catch-all Route for Errors */}
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
+
+export const getNgoRouter = (user: User) => {
+  const permissions: Map<string, UserPermission> = user.permissions;
+  return (
+    <BrowserRouter>
+      <Routes>
+        {/* Unauthorized Route */}
+        <Route path="/unauthorized" element={<Unauthorized />} />
+
+        {/* Site Routes */}
+        <Route
+          path="/"
+          element={
+            <I18nextProvider i18n={i18n}>
+              <SiteLayout />
+            </I18nextProvider>
+          }
+        >
+          {/* These routes will be passed as children */}
+          {site}
+        </Route>
+
+        {/* User Routes (Protected) */}
+        <Route
+          path="/"
+          element={
+            <I18nextProvider i18n={i18n}>
+              <AuthLayout />
+            </I18nextProvider>
+          }
+        >
+          <Route
+            path="dashboard"
+            element={
+              <ProtectedRoute
+                element={<NgoDashboardPage />}
+                routeName="dashboard"
+                permissions={permissions}
+              />
+            }
+          />
+          <Route
+            path="projects"
+            element={
+              <ProtectedRoute
+                element={<NgoProjectsPage />}
+                routeName="projects"
+                permissions={permissions}
+              />
+            }
+          />
+          <Route
+            path="reports"
+            element={
+              <ProtectedRoute
+                element={<NgoReportsPage />}
+                routeName="reports"
+                permissions={permissions}
+              />
+            }
+          />
+          <Route
+            path="settings"
+            element={
+              <ProtectedRoute
+                element={<NgoSettingsPage />}
+                routeName="settings"
+                permissions={permissions}
+              />
+            }
+          />
+          <Route path="profile" element={<ProfilePage />} />
+        </Route>
+
+        {/* Catch-all Route for Errors */}
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
+
+export const getDonorRouter = (user: User) => {
+  const permissions: Map<string, UserPermission> = user.permissions;
+  return (
+    <BrowserRouter>
+      <Routes>
+        {/* Unauthorized Route */}
+        <Route path="/unauthorized" element={<Unauthorized />} />
+
+        {/* Site Routes */}
+        <Route
+          path="/"
+          element={
+            <I18nextProvider i18n={i18n}>
+              <SiteLayout />
+            </I18nextProvider>
+          }
+        >
+          {/* These routes will be passed as children */}
+          {site}
+        </Route>
+
+        {/* User Routes (Protected) */}
+        <Route
+          path="/"
+          element={
+            <I18nextProvider i18n={i18n}>
+              <AuthLayout />
+            </I18nextProvider>
+          }
+        >
+          <Route
+            path="dashboard"
+            element={
+              <ProtectedRoute
+                element={<DonorDashboardPage />}
+                routeName="dashboard"
+                permissions={permissions}
+              />
+            }
+          />
+          <Route
+            path="ngo"
+            element={
+              <ProtectedRoute
+                element={<DonorNgoPage />}
+                routeName="ngo"
+                permissions={permissions}
+              />
+            }
+          />
+          <Route
+            path="projects"
+            element={
+              <ProtectedRoute
+                element={<DonorProjectsPage />}
+                routeName="projects"
+                permissions={permissions}
+              />
+            }
+          />
+          <Route
+            path="reports"
+            element={
+              <ProtectedRoute
+                element={<DonorReportsPage />}
+                routeName="reports"
+                permissions={permissions}
+              />
+            }
+          />
+          <Route
+            path="settings"
+            element={
+              <ProtectedRoute
+                element={<DonorSettingsPage />}
+                routeName="settings"
                 permissions={permissions}
               />
             }
@@ -297,6 +529,8 @@ export const getGuestRouter = () => {
           }
         >
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/donor/login" element={<LoginPage />} />
+          <Route path="/ngo/login" element={<LoginPage />} />
           <Route path="/forget-password" element={<ForgotPasswordPage />} />
         </Route>
         {/* Site Routes */}
