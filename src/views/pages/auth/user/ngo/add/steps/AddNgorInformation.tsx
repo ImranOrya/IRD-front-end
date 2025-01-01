@@ -34,21 +34,47 @@ export default function AddNgoInformation() {
   ) : undefined;
   return (
     <div className="flex flex-col mt-10 w-full sm:w-[86%] md:w-[60%] lg:w-[400px] gap-y-6 pb-12 mx-auto">
-      <CustomInput
+      <BorderContainer
+        title={t("name")}
         required={true}
-        lable={t("name")}
-        requiredHint={`* ${t("Required")}`}
-        size_="sm"
-        name="name"
-        defaultValue={userData["name"]}
-        placeholder={t("name_en")}
-        type="text"
-        errorMessage={error.get("name")}
-        onBlur={handleChange}
-        startContent={
-          <UserRound className="text-tertiary size-[18px] pointer-events-none" />
-        }
-      />
+        parentClassName=" py-4"
+        className="grid grid-cols-1 gap-y-3"
+      >
+        <CustomInput
+          required={true}
+          requiredHint={`* ${t("Required")}`}
+          size_="sm"
+          name="name_en"
+          defaultValue={userData["name_en"]}
+          placeholder={t("name_en")}
+          type="text"
+          errorMessage={error.get("name_en")}
+          onBlur={handleChange}
+        />
+        <CustomInput
+          required={true}
+          requiredHint={`* ${t("Required")}`}
+          size_="sm"
+          name="name_fa"
+          defaultValue={userData["name_fa"]}
+          placeholder={t("name_fa")}
+          type="text"
+          errorMessage={error.get("name_fa")}
+          onBlur={handleChange}
+        />
+        <CustomInput
+          required={true}
+          requiredHint={`* ${t("Required")}`}
+          size_="sm"
+          name="name_ps"
+          defaultValue={userData["name_ps"]}
+          placeholder={t("name_ps")}
+          type="text"
+          errorMessage={error.get("name_ps")}
+          onBlur={handleChange}
+        />
+      </BorderContainer>
+
       <CustomInput
         required={true}
         requiredHint={`* ${t("Required")}`}

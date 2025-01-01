@@ -165,5 +165,7 @@
   "address": "Address",
   "country": "Country",
   "district": "District",
-  "area": "Area"
+  "area": "Area",
+  "registration_no": "Registration No",
+  "expire_date": "Expire Date"
 }

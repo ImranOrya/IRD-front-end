@@ -117,12 +117,12 @@ export type Ngo = {
   name: string;
   abbr: string;
   status: NgoStatus;
-  registration_no: string;
-  date_of_establishment: string;
-  expire_date: string;
+  registrationNo: string;
+  dateOfEstablishment: string;
+  expireDate: string;
   type: NgoType;
-  moe_registrationNo: string;
-  place_of_establishment: string;
+  moeRegistrationNo: string;
+  placeOfEstablishment: string;
   email: Email;
   contact: Contact;
   createdAt: string;

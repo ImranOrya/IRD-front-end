@@ -1,4 +1,4 @@
-import { Eye, EyeOff, Mail } from "lucide-react";
+import { Eye, EyeOff, Mail, Phone } from "lucide-react";
 import { useContext, useState } from "react";
 import { StepperContext } from "@/components/custom-ui/stepper/StepperContext";
 import { useTranslation } from "react-i18next";
@@ -16,6 +16,21 @@ export default function AddNgoAccount() {
   };
   return (
     <div className="flex flex-col mt-10 w-full gap-y-3 sm:w-[86%] md:w-[60%] lg:w-[400px] mx-auto">
+      <CustomInput
+        size_="sm"
+        dir="ltr"
+        className="rtl:text-end"
+        lable={t("contact")}
+        placeholder={t("Enter your phone number")}
+        defaultValue={userData["phone"]}
+        type="text"
+        name="phone"
+        errorMessage={error.get("phone")}
+        onChange={handleChange}
+        startContent={
+          <Phone className="text-tertiary size-[18px] pointer-events-none" />
+        }
+      />
       <CustomInput
         size_="sm"
         name="email"

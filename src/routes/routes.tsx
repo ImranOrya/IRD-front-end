@@ -10,7 +10,6 @@ import ForgotPasswordPage from "@/views/pages/guest/password/forgot-password-pag
 import MainPage from "@/views/site/main-page";
 import HomePage from "@/views/site/tabs/home/home-page";
 import AboutPage from "@/views/site/tabs/about/about-page";
-import ContactPage from "@/views/site/tabs/contact/contact-page";
 import SiteLayout from "@/views/layout/site-layout";
 import SuperAuditPage from "@/views/pages/auth/super/audit/super-audit-page";
 import SuperUserEditPage from "@/views/pages/auth/general/users/edit/super-user-edit-page";
@@ -36,6 +35,8 @@ import SuperReportsPage from "@/views/pages/auth/general/reports/super-reports-p
 import SuperUserPage from "@/views/pages/auth/general/users/super-user-page";
 import NgoReportsPage from "@/views/pages/auth/ngo/reports/ngo-reports-page";
 import ProjectsPage from "@/views/pages/auth/user/projects/projects-page";
+import NgosPage from "@/views/site/tabs/ngos/ngos-page";
+import NewsPage from "@/views/site/tabs/news/news-page";
 
 export const getSuperRouter = (user: User) => {
   const permissions: Map<string, UserPermission> = user.permissions;
@@ -556,8 +557,10 @@ const site = (
   <Route path="/" element={<MainPage />}>
     <Route index element={<HomePage />} />
     {/* Default route (equivalent to `/`) */}
+    <Route path="home" element={<HomePage />} />
+    <Route path="ngos" element={<NgosPage />} />
+    <Route path="news" element={<NewsPage />} />
     <Route path="about" element={<AboutPage />} />
-    <Route path="contact" element={<ContactPage />} />
     <Route path="*" element={<HomePage />} />
     {/* Fallback for unknown routes */}
   </Route>

@@ -437,7 +437,7 @@ export function NgoTable() {
                   {item.id}
                 </TableCell>
                 <TableCell className="rtl:text-md-rtl truncate px-1 py-0">
-                  {item.registration_no}
+                  {item.registrationNo}
                 </TableCell>
                 <TableCell className="rtl:text-md-rtl truncate px-1 py-0">
                   {item.name}
@@ -446,7 +446,7 @@ export function NgoTable() {
                   {item.type.name}
                 </TableCell>
                 <TableCell>
-                  {toLocaleDate(new Date(item.date_of_establishment), state)}
+                  {toLocaleDate(new Date(item.dateOfEstablishment), state)}
                 </TableCell>
                 <TableCell>
                   {item?.status ? (
@@ -460,7 +460,7 @@ export function NgoTable() {
                   )}
                 </TableCell>
                 <TableCell>
-                  {toLocaleDate(new Date(item.expire_date), state)}
+                  {toLocaleDate(new Date(item.expireDate), state)}
                 </TableCell>
                 <TableCell className="rtl:text-md-rtl truncate px-1 py-0">
                   {item.contact.value}
