@@ -37,6 +37,7 @@ import NgoReportsPage from "@/views/pages/auth/ngo/reports/ngo-reports-page";
 import ProjectsPage from "@/views/pages/auth/user/projects/projects-page";
 import NgosPage from "@/views/site/tabs/ngos/ngos-page";
 import NewsPage from "@/views/site/tabs/news/news-page";
+import NewsInfo from "@/views/site/tabs/news/news-info";
 
 export const getSuperRouter = (user: User) => {
   const permissions: Map<string, UserPermission> = user.permissions;
@@ -560,6 +561,7 @@ const site = (
     <Route path="home" element={<HomePage />} />
     <Route path="ngos" element={<NgosPage />} />
     <Route path="news" element={<NewsPage />} />
+    <Route path="news/:id" element={<NewsInfo />} />
     <Route path="about" element={<AboutPage />} />
     <Route path="*" element={<HomePage />} />
     {/* Fallback for unknown routes */}

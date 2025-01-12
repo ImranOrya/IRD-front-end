@@ -14,6 +14,7 @@ interface Slide {
   image1: string;
   title: string;
   description: string;
+  date: string;
 }
 
 function SliderSection() {
@@ -57,24 +58,24 @@ function SliderSection() {
   }
 
   return (
-    <div className="w-full max-w-lg mx-auto">
+    <div className="w-full max-w-lg mx-auto py-20">
       <Carousel opts={{ align: "start" }}>
-        <CarouselContent>
+        <CarouselContent className="relative group">
           {slides.map((slide) => (
-            <CarouselItem key={slide.id} className="w-full">
-              <Card>
-                <CardContent className="p-4">
+            <CarouselItem key={slide.id} className=" w-full">
+              <Card className="relative group">
+                <CardContent className="p-0  h-[300px] ">
                   <img
                     src={slide.image1}
                     alt={`Slide ${slide.id} Image`}
-                    className="w-full h-auto object-cover rounded-lg shadow-lg"
+                    className="min-w-full h-full object-fill rounded"
                   />
-                  <h3 className="mt-4 text-center text-xl font-semibold">
-                    {slide.title}
-                  </h3>
-                  <p className="mt-2 text-center text-gray-600">
-                    {slide.description}
-                  </p>
+                  <div>
+                    {" "}
+                    <h3 className="flex flex-col justify-start items-start p-4">
+                      {slide.title}
+                    </h3>
+                  </div>
                 </CardContent>
               </Card>
             </CarouselItem>

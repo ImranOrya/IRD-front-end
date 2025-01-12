@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
+import QuillEditor from "./editor";
 
 export default function SuperReportsPage() {
   const { t } = useTranslation();
@@ -31,6 +32,7 @@ export default function SuperReportsPage() {
       </Breadcrumb>
       <h1 className="p-4"> Comming Soon...</h1>
       {/* <AuditTable /> */}
+      <QuillEditor />
     </div>
   );
 }

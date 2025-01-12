@@ -6,7 +6,8 @@ import {
 } from "./routes/routes";
 import { useAuthState } from "./context/AuthContextProvider";
 import { RoleEnum } from "./lib/constants";
-
+import "quill/dist/quill.snow.css";
+import "./index.css";
 export default function App() {
   const { user, loading, authenticated } = useAuthState();
   if (loading) return;

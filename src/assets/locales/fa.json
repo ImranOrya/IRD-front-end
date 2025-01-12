@@ -156,5 +156,32 @@
   "of": "از",
   "ngo": "سازمان",
   "projects": "پروژه ها",
-  "donor": "دونر"
+  "donor": "دونر",
+  "reg_no":"شماره ثبت",
+  "ngo_name":"اسم موسسه",
+  "abbrebviation": "مخفف موسسه",
+  "date_of_est": "تاریخ ثبت",
+  "direc_name": "اسم ریس موسسه",
+  "province": "ولایت",
+  "activi_area": "ساحه فعالیت",
+  "clear":"حذف",
+  "sea_ngo_name":"جستجو به اساس نام یا مخفف موسسه",
+  "news":"اخبار",
+  "title":"عنوان",
+  "enter_your_subject":"موضوع خود را وارید کنید",
+  "enter_ur_phno":"شماره خود را وارید کنید",
+  "message:":"متن",
+  "subject":"موضوع",
+  "submit":"ارسال",
+  "enter-ur_messhere...":"متن خور را اینجا وارد کنید" ,
+  "technical_support":"پشتبانی فنی",
+  "administrative_stuff":"کارکنان اداری",
+  "manager":"مدیر اداری",
+  "contact_us":"ارتباط با ما"
+  
+  
+
+  
+  
+
 }

@@ -128,3 +128,31 @@ export type Ngo = {
   createdAt: string;
   address: Address;
 };
+
+
+export type News = {
+  id: string;
+  newsType: {
+    id: string;
+    name: string;
+    createdAt: string;
+  };
+  priority: {
+    id: string;
+    name: string;
+    createdAt: string;
+  };
+  user: {
+    id: string;
+    profile: string;
+    fullName: string;
+    username: string;
+    job: string;
+    createdAt: string;
+  };
+  visible: boolean;
+  expiry_date: string;
+  contents: string;
+  createdAt: string;
+  updatedAt: string;
+};

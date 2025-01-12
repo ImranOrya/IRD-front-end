@@ -65,18 +65,16 @@ function NewSection() {
                     2xl:grid-cols-4"
       >
         {images.map((img) => (
-          <Card key={img.id} className="w-full">
-            <CardContent>
-              <div className="relative  h-64 object-fill">
-                <img
-                  src={img.image}
-                  alt={img.title}
-                  className="absolute  h-72 w-full  rounded"
-                />
-              </div>
+          <Card key={img.id} className="relative group">
+            <CardContent className="p-0  h-[300px]">
+              <img
+                src={img.image}
+                alt={img.title}
+                className="min-w-full h-full object-fill rounded"
+              />
             </CardContent>
-            <CardFooter className="flex flex-col p-4">
-              <h2 className="font-bold text-xl text-center mb-2">
+            <CardFooter className="flex flex-col justify-start items-start p-4">
+              <h2 className="font-bold text-xl ltr:text-left rtl:text-right mb-2">
                 {img.title}
               </h2>
               <p className="text-center text-sm text-gray-600">
